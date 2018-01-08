@@ -1,15 +1,15 @@
 # -*- coding:utf8 -*-
 from abc import ABCMeta, abstractmethod
 from collections import namedtuple
-
-from graphdb_interface import GraphExistsError, GraphError, GraphNameError, NodeNotFoundError, EdgeNotFoundError, UserLoginNotFoundError
-
 import igraph
 import datetime
 from  uuid import uuid4
+
+import pdglib.graphdb_interface
+from pdglib.graphdb_interface import GraphExistsError, GraphError, GraphNameError, NodeNotFoundError, EdgeNotFoundError, UserLoginNotFoundError, iGraphDB
+
 from cello.providers.igraphGraph import IgraphGraph
 from cello.graphs.prox import ProxSubgraph, ProxExtract
-import graphdb_interface
 
 # Types de nœuds 
 #User = namedtuple("User", "login password")
@@ -23,7 +23,7 @@ import graphdb_interface
 #LogEntry = namedtuple("LogEntry", "who did what on_what when previous_state")
 
 
-class IGraphDB(graphdb_interface.iGraphDB):
+class IGraphDB(iGraphDB):
 
     def __init__(self, conf):
         """ Function doc

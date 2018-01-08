@@ -2,18 +2,16 @@
 
 from setuptools import setup, find_packages
 
-#TODO; better setup
-# see https://bitbucket.org/mchaput/whoosh/src/999cd5fb0d110ca955fab8377d358e98ba426527/setup.py?at=default
-# for ex
+print("*** setup pdglib ** ** ")
 
-# Read requirements from txt file
 with open('requirements.txt') as f:
     required = f.read().splitlines()
 
 
+
 setup(
-    name='padagraphlib',
-    version='1.0',
+    name='pdglib',
+    version='1.0.1',
     description='padagraph graphlib',
     author='ynnk, a-tsioh',
     author_email='contact@padagraph.io',
