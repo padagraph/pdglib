@@ -12,12 +12,12 @@ with open('requirements.txt') as f:
 
 
 setup(
-    name='cello',
-    version='1.0.2',
-    description='Cello',
-    author='KodexLab',
-    author_email='contact@kodexlab.com',
-    url='http://www.kodexlab.com/',
-    packages=['cello'] + ['cello.%s' % submod for submod in find_packages('cello')],
+    name='padagraphlib',
+    version='1.0',
+    description='padagraph graphlib',
+    author='ynnk, a-tsioh',
+    author_email='contact@padagraph.io',
+    url='www.padagraph.io',
+    packages=['pdglib'] + ['pdglib.%s' % submod for submod in find_packages('pdglib')],
     install_requires=required,
 )
