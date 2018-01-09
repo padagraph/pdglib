@@ -73,7 +73,7 @@ def expand_subgraph( graphdb, gid, uuids, limit=10):
     :param length: extraction array length 
     """
     vs = []
-    weights = [];
+    weights = "weight";
 
     kwargs = {
             'limit' : limit,
