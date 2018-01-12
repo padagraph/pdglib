@@ -99,13 +99,14 @@ class IGraphDB(iGraphDB):
 
     def get_graph(self, gid):
 
-        path = self.conf.get(gid)
-        
-        if path is None : raise GraphError('no such graph %s' % gid) 
+        graph = self.graphs.get(gid)
 
-        if self.conf.get(gid,None) : 
-            graph = self.graphs.get(gid)
-            if not graph : 
+        if not graph : 
+            path = self.conf.get(gid)
+            
+            if path is None : raise GraphError('no such graph %s' % gid) 
+
+            if self.conf.get(gid,None) : 
                 print "opening graph %s@%s" %(gid, path)
                 graph = IgraphGraph.Read(path)
                 self.graphs[gid] = graph
@@ -123,6 +124,15 @@ class IGraphDB(iGraphDB):
         """ return meta data for a graph """
         g = self.get_graph(gid)
         return {  k:g[k] for k in  g.attributes() } if g else {'gid': gid}
+
+    def get_node_types(self, gid):
+        g = self.get_graph(gid)
+        return g['nodetypes']
+            
+    def get_edge_types(self, gid):
+        g = self.get_graph(gid)
+        return g['edgetypes']
+    
         
     def create_graph(self, username, graph_name, graph_description):
         """
