@@ -1,9 +1,3 @@
 reliure
 six
 future
-py2neo<3
-
-python-igraph
-numpy
-scipy
-scikit-learn
