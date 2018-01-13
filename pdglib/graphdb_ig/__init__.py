@@ -2,6 +2,7 @@
 from abc import ABCMeta, abstractmethod
 from collections import namedtuple
 import igraph
+import re
 import datetime
 from  uuid import uuid4
 
@@ -493,7 +494,20 @@ class IGraphDB(iGraphDB):
         s = extract(g, pzeros=pz, cut=limit)
         return s
 
-    def complete_label(self, graph_name, label): return []
+    def complete_label(self, gid, what, prefix, start=0, size=100):
+        g = self.get_graph(gid)
+        m = []
+        for v in g.vs:
+            if re.search( "%s.*" % prefix, v['properties']['label'] ):
+                m.append({
+                    "label": v['properties']['label'], 
+                    "nodetype":v['nodetype'] , 
+                    "uuid": v['uuid'], 
+                 })
+        t = len(m)
+        m = m[start:size]
+        return m
+         
     def destroy_graph(self, graph_name): pass
     
 
