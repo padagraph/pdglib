@@ -345,10 +345,11 @@ class IGraphDB(iGraphDB):
         g = self.graphs.get(gid)
         vs = g.vs.select(uuid=node_id)
         rs = []
+        mode = { "OUT": 1 , "IN": 2 , "ALL": 3 }.get(mode, 3)
         
         if len(vs):
             v = vs[0]
-            edges = [g.es[e] for e in  g.incident(v.index)]
+            edges = [g.es[e] for e in  g.incident(v.index, mode = mode )]
             for e in edges:
                 mode = "ALL"
                 vertex = v.index
@@ -498,7 +499,7 @@ class IGraphDB(iGraphDB):
         g = self.get_graph(gid)
         m = []
         for v in g.vs:
-            if re.search( "%s.*" % prefix, v['properties']['label'] ):
+            if re.search( ".*%s.*" % prefix, v['properties']['label'] , re.IGNORECASE ):
                 m.append({
                     "label": v['properties']['label'], 
                     "nodetype":v['nodetype'] , 

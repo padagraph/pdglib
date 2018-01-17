@@ -11,7 +11,7 @@ with open('requirements.txt') as f:
 
 setup(
     name='pdglib',
-    version='1.0.1',
+    version='1.0.2',
     description='padagraph graphlib',
     author='ynnk, a-tsioh',
     author_email='contact@padagraph.io',
