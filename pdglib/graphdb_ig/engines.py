@@ -274,7 +274,6 @@ def expand_prox_engine(graphdb):
 
     engine.scores.set(expand)
 
-
     return engine
 
 

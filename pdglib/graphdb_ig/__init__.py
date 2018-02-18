@@ -55,7 +55,6 @@ class IGraphDB(iGraphDB):
         """
         initialize the backend
         """
-        self.graph = IgraphGraph()
         self.graphs = {}
 
     def get_db_metadata(self):
@@ -101,10 +100,9 @@ class IGraphDB(iGraphDB):
     def get_graph(self, gid):
 
         graph = self.graphs.get(gid)
-
-        if not graph : 
+        
+        if graph is None : 
             path = self.conf.get(gid)
-            
             if path is None : raise GraphError('no such graph %s' % gid) 
 
             if self.conf.get(gid,None) : 
@@ -112,9 +110,9 @@ class IGraphDB(iGraphDB):
                 graph = IgraphGraph.Read(path)
                 self.graphs[gid] = graph
 
-        if graph : return graph
-        
-        raise GraphError('%s' % gid)
+        if graph is not None:
+            return graph
+        else : raise GraphError('%s' % gid)
 
         
     def get_graph_infos(self, gid):
@@ -124,8 +122,18 @@ class IGraphDB(iGraphDB):
     def get_graph_metadata(self, gid) :
         """ return meta data for a graph """
         g = self.get_graph(gid)
-        return {  k:g[k] for k in  g.attributes() } if g else {'gid': gid}
 
+        def f(obj):
+            if type(obj) == set :
+                return list(obj)
+
+            return obj
+
+        
+        return  {  k:  f(g[k]) for k in  g.attributes() } if g is not None else {'gid': gid}
+    
+
+        
     def get_node_types(self, gid):
         g = self.get_graph(gid)
         return g['nodetypes']
@@ -133,6 +141,7 @@ class IGraphDB(iGraphDB):
     def get_edge_types(self, gid):
         g = self.get_graph(gid)
         return g['edgetypes']
+
     
         
     def create_graph(self, username, graph_name, graph_description):
