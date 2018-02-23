@@ -37,7 +37,7 @@ def edge_subgraph( data ):
     elif _format == 'uuid_edgelist' :
         edgelist =  data['edgelist']
         weights =  data.get('weights', [1 for i in edgelist])
-        return egdes_subgraph(graphdb, gid, edgelist, weights)
+        return uuid_egdelist_subgraph(graphdb, gid, edgelist, weights)
 
 def egde_list_subgraph(node_list, edge_list, weights, directed=False ):
     
