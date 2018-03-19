@@ -26,11 +26,11 @@ from cello.graphs.prox import ProxSubgraph, ProxExtract
 
 class IGraphDB(iGraphDB):
 
-    def __init__(self, conf):
+    def __init__(self, graphs=None, conf=None):
         """ Function doc
         :param : 
         """
-        self.graphs = {}
+        self.graphs = {} if graphs is None else graphs
         self.conf = conf
         
     @staticmethod
@@ -41,7 +41,8 @@ class IGraphDB(iGraphDB):
         """ Function doc
         :param : 
         """
-        names = ", ".join([ k for k in self.graphs ])
+        #names = ", ".join([ k for k in self.graphs ])
+        names = ""
         return " ".join([u'iGraphDB', '@%s' % names ]) 
         
     def open_database(self):
@@ -49,13 +50,14 @@ class IGraphDB(iGraphDB):
         print( self.get_db_metadata() )
 
     def close_database(self):
-        self.graph = None
+        pass
         
     def create_database(self, **kwargs):
         """
         initialize the backend
         """
-        self.graphs = {}
+        if not self.graphs:
+            self.graphs = {}
 
     def get_db_metadata(self):
         """ returns dict containg db meta """
@@ -101,7 +103,7 @@ class IGraphDB(iGraphDB):
 
         graph = self.graphs.get(gid)
         
-        if graph is None : 
+        if graph is None and self.conf: 
             path = self.conf.get(gid)
             if path is None : raise GraphError('no such graph %s' % gid) 
 
@@ -142,7 +144,9 @@ class IGraphDB(iGraphDB):
         g = self.get_graph(gid)
         return g['edgetypes']
 
-    
+    def set_graph(self, gid, graph):
+        self.graphs[gid] = graph
+        
         
     def create_graph(self, username, graph_name, graph_description):
         """
