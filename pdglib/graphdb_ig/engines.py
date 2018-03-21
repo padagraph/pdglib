@@ -260,7 +260,7 @@ def expand_prox_engine(graphdb):
         if filter_edges is None:
             filter_edges = []
         gid = query.get("graph")
-        pzeros = query.get("nodes")
+        pzeros = query.get("expand", []) + query.get("nodes", []) 
         weights = query.get("weights", [])
 
         return  graphdb.proxemie( gid, pzeros, weights, filter_edges=filter_edges, filter_nodes=filter_nodes, limit=limit, n_step=step)
