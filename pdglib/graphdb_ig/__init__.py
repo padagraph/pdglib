@@ -84,7 +84,7 @@ class IGraphDB(iGraphDB):
         one = time.time()
         data = self.get_db_metadata()
         
-        print data
+        print( data )
         count = data['count']
 		
         data['offset'] = offset
@@ -108,7 +108,7 @@ class IGraphDB(iGraphDB):
             if path is None : raise GraphError('no such graph %s' % gid) 
 
             if self.conf.get(gid,None) : 
-                print "opening graph %s@%s" %(gid, path)
+                print( "opening graph %s@%s" %(gid, path))
                 graph = IgraphGraph.Read(path)
                 self.graphs[gid] = graph
 
@@ -197,7 +197,7 @@ class IGraphDB(iGraphDB):
             raise UserLoginExistsError(login)
             
 
-        print "created user %s " % user
+        print( "created user %s " % user)
         return user
 
     def _get_user(self, login):
